@@ -13,23 +13,24 @@ public class PSOTest {
 				
 		int numSimulations = 30;
 		
-		int numIterations = 10000;
+		//int numIterations = 10000;
+		int maxFitnessReadings = 500000;
 		
 		//sphere, rosenbrock or rastrigin
 		String fitnessFunction = "rastrigin";
 		
 		//DIMENSIONS -> SPHERE (-100, 100) | ROSENBROCK (-30, 30) | RASTRIGIN (-5.12, 5.12)
-		double dimensionLowerBound = -5.12;
-		double dimensionUpperBound = 5.12;
+		double dimensionLowerBound = -100.00;
+		double dimensionUpperBound = 100.00;
 		
 		int numDimensions = 30;
 	
 		//global, focal or ring
 		String topology = "ring";	
 		
-		double inertiaWeight = 0.8;
+		double inertiaWeight = 0.9;
 		
-		boolean inertiaWeightDecay = false;
+		boolean inertiaWeightDecay = true;
 		
 		boolean clercFactor = false;
 		
@@ -52,7 +53,7 @@ public class PSOTest {
 
 			//parameters: numParticles, searchSpace, topology, fitnessFunction, numIterations, inertiaWeight, inertiaWeightDecay, clercFactor, limitVelocity, limitPosition
 			
-			PSO pso = new PSO(numParticles, searchSpace, topology, fitnessFunction, numIterations, inertiaWeight, inertiaWeightDecay, clercFactor, limitVelocity, limitPosition);
+			PSO pso = new PSO(numParticles, searchSpace, topology, fitnessFunction, maxFitnessReadings, inertiaWeight, inertiaWeightDecay, clercFactor, limitVelocity, limitPosition);
 
 			simulationsResult[i] = pso.run();
 
@@ -71,7 +72,7 @@ public class PSOTest {
 			
 			String fileName = "pso_numsimul-" + numSimulations + "_searchspace-" + strLowerBound + "to" + strUpperBound + 
 					"_numdimensions-" + numDimensions + "_topology-" + topology + "_fitnessfunction-" + fitnessFunction + 
-					"_numiterations-" + numIterations + "_inertiaweight-" + strInertiaWeight + "_inertiadecay-" + strInertiaWeightDecay +
+					"_maxfitnessreadings-" + maxFitnessReadings + "_inertiaweight-" + strInertiaWeight + "_inertiadecay-" + strInertiaWeightDecay +
 					"_clercfactor-" + strClercFactor + "_limitvelocity-" + strLimitVelocity + "_limitposition-" + strLimitPosition +
 					".csv";
 
@@ -88,7 +89,7 @@ public class PSOTest {
 
 			}
 			
-			for(int i = 0; i < numIterations; i++) {
+			for(int i = 0; i < (maxFitnessReadings/10); i++) {
 				for(int j = 0; j < numSimulations; j++) {
 					sb.append(simulationsResult[j][i]);
 					if(j < (numSimulations-1)) {
