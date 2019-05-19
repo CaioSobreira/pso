@@ -68,8 +68,8 @@ public class Particle {
 			this.velocity[i] = ThreadLocalRandom.current().nextDouble(-1.0, 1.0);
 
 			//initializing dimension 'i' position with an a random value between dimension bounds
-			this.position[i] = ThreadLocalRandom.current().nextDouble(searchSpace.getDimensions()[i].getLowerBound(),
-					searchSpace.getDimensions()[i].getUpperBound());
+			this.position[i] = ThreadLocalRandom.current().nextDouble(searchSpace.getDimensions()[i].getInitSubSpaceLowerBound(),
+					searchSpace.getDimensions()[i].getInitSubSpaceUpperBound());
 
 			this.positionNeighborHoodBest[i] = 1.0;
 

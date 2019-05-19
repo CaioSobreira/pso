@@ -17,11 +17,15 @@ public class PSOTest {
 		int maxFitnessReadings = 500000;
 		
 		//sphere, rosenbrock or rastrigin
-		String fitnessFunction = "rastrigin";
+		String fitnessFunction = "sphere";
 		
 		//DIMENSIONS -> SPHERE (-100, 100) | ROSENBROCK (-30, 30) | RASTRIGIN (-5.12, 5.12)
-		double dimensionLowerBound = -100.00;
-		double dimensionUpperBound = 100.00;
+		double dimensionLowerBound = -100.0;
+		double dimensionUpperBound = 100.0;
+		
+		//SPHERE (50, 100) | ROSENBROCK (15, 30) | RASTRIGIN (2.56, 5.12)
+		double dimensionInitSubsPaceLowerBound = 50.0;
+		double dimensionInitSubSpaceUpperBound = 100.0;
 		
 		int numDimensions = 30;
 	
@@ -41,7 +45,7 @@ public class PSOTest {
 		Dimension[] dimensions = new Dimension[numDimensions];
 
 		for(int i = 0; i < dimensions.length; i++) { 
-			dimensions[i] = new Dimension(dimensionLowerBound, dimensionUpperBound); 
+			dimensions[i] = new Dimension(dimensionLowerBound, dimensionUpperBound, dimensionInitSubsPaceLowerBound, dimensionInitSubSpaceUpperBound); 
 		}
 	
 		SearchSpace searchSpace = new SearchSpace(dimensions);		
@@ -64,13 +68,16 @@ public class PSOTest {
 			
 			String strLowerBound = new Double(dimensionLowerBound).toString().replace("-", "minus").replace(".", "dot");
 			String strUpperBound = new Double(dimensionUpperBound).toString().replace("-", "minus").replace(".", "dot");
+			String strInitSubspaceLowerBound = new Double(dimensionInitSubsPaceLowerBound).toString().replace("-", "minus").replace(".", "dot");
+			String strInitSubspaceUpperBound = new Double(dimensionInitSubSpaceUpperBound).toString().replace("-", "minus").replace(".", "dot");
 			String strInertiaWeight = new Double(inertiaWeight).toString().replace(".", "dot");
 			String strInertiaWeightDecay = inertiaWeightDecay ? "yes" : "no";
 			String strClercFactor = clercFactor ? "yes" : "no";
 			String strLimitVelocity = limitVelocity ? "yes" : "no";
 			String strLimitPosition = limitPosition ? "yes" : "no";
 			
-			String fileName = "pso_numsimul-" + numSimulations + "_searchspace-" + strLowerBound + "to" + strUpperBound + 
+			String fileName = "pso_numsimul-" + numSimulations + "_searchspace-" + strLowerBound + "to" + strUpperBound +
+					"_initsubspace-" + strInitSubspaceLowerBound + "to" + strInitSubspaceUpperBound +
 					"_numdimensions-" + numDimensions + "_topology-" + topology + "_fitnessfunction-" + fitnessFunction + 
 					"_maxfitnessreadings-" + maxFitnessReadings + "_inertiaweight-" + strInertiaWeight + "_inertiadecay-" + strInertiaWeightDecay +
 					"_clercfactor-" + strClercFactor + "_limitvelocity-" + strLimitVelocity + "_limitposition-" + strLimitPosition +
